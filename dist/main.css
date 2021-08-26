@@ -1,0 +1,102 @@
+* {
+  cursor: default;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+canvas {
+  margin: 0;
+  padding: 0;
+}
+
+#btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5%;
+  cursor: pointer;
+}
+
+#btn svg {
+  cursor: pointer;
+  animation: rotate 2s infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#controls {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  text-align: center;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 0 10px 5px black;
+  transition: 1s;
+}
+
+#fullscreen-btn {
+  background: rgba(60, 179, 114, 0.384);
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+#fullscreen-btn h1 {
+  background: brown;
+  padding: 0.5em;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+
+#circlesNum {
+  width: 90%;
+  -webkit-appearance: none;
+  background: blueviolet;
+  height: 5px;
+  outline: none;
+  border-radius: 5px;
+}
+
+#circlesNum::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(43, 255, 0, 0.7);
+  cursor: pointer;
+}
+
+#close-btn {
+  background: rgba(60, 179, 114, 0.384);
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+#close-btn h4 {
+  background: rgba(255, 0, 0, 0.74);
+  padding: 0.5em;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
