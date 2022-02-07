@@ -1,4 +1,5 @@
 let canvas = document.querySelector("#canvas");
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -10,41 +11,29 @@ let mouse = {
 };
 
 let maxR = 40;
-let circlesNum = 1000;
+let circlesNum = 100;
 let context = canvas.getContext("2d");
 
-window.addEventListener("resize", () => {
+window.addEventListener("resize", resize);
+
+window.addEventListener("touchstart", updateMouse);
+window.addEventListener("touchmove", updateMouse);
+window.addEventListener("touchend", updateMouse);
+window.addEventListener("touchcancel", updateMouse);
+window.addEventListener("mousemove", updateMouse);
+
+function resize() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   innerHeight = canvas.height;
   innerWidth = canvas.width;
   init();
-});
+}
 
-window.addEventListener("touchstart", (e) => {
+function updateMouse(e) {
   mouse.x = e.clientX;
   mouse.y = e.clientY;
-});
-
-window.addEventListener("touchmove", (e) => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-});
-
-window.addEventListener("touchend", (e) => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-});
-
-window.addEventListener("touchcancel", (e) => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-});
-
-window.addEventListener("mousemove", (e) => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-});
+}
 
 function Circle(x, y, r, vx, vy, color) {
   this.x = x;
@@ -72,7 +61,6 @@ function Circle(x, y, r, vx, vy, color) {
     this.x += this.vx;
     this.y += this.vy;
 
-    //interactivity
     if (
       mouse.x - this.x < 50 &&
       mouse.x - this.x > -50 &&
@@ -94,6 +82,7 @@ let circles = [];
 
 function init() {
   circles = [];
+
   for (let i = 0; i < circlesNum; i++) {
     let randR = Math.random() * 5 + 1;
 
@@ -112,45 +101,50 @@ function init() {
 }
 
 function animate() {
-  requestAnimationFrame(animate);
   context.clearRect(0, 0, innerWidth, innerHeight);
   circles.forEach((circle) => {
     circle.update();
   });
 }
 
-animate();
 init();
+setInterval(animate, 20);
 
-//controls
 function fullscreen() {
   document.body.requestFullscreen();
-  document.querySelector("#controls").style.top = "-50%";
+  controls.style.top = "-50%";
 }
 
-document.querySelector("#circlesNum").addEventListener("mousemove", (e) => {
-  let circlesNumDis = document.querySelector("#circlesNumDis");
+const circlesNumElm = document.querySelector("#circlesNum");
+const circlesNumDis = document.querySelector("#circlesNumDis");
+const btn = document.querySelector("#btn");
+const controls = document.querySelector("#controls");
+const close = document.querySelector("#close");
+const fullscreenBtn = document.querySelector("#fullscreen-btn");
+
+circlesNumElm.addEventListener("mousemove", (e) => {
   circlesNumDis.textContent = `${e.target.value} circles`;
 });
 
-document.querySelector("#circlesNum").addEventListener("touchmove", (e) => {
-  let circlesNumDis = document.querySelector("#circlesNumDis");
+circlesNumElm.addEventListener("touchmove", (e) => {
   circlesNumDis.textContent = `${e.target.value} circles`;
 });
 
-document.querySelector("#circlesNum").addEventListener("change", (e) => {
+circlesNumElm.addEventListener("change", (e) => {
   circlesNum = e.target.value;
   init();
 });
 
-document.querySelector("#btn").addEventListener("click", function () {
-  document.querySelector("#controls").style.top = "50%";
+btn.addEventListener("click", function () {
+  controls.style.top = "50%";
 });
 
-document.querySelector("#close").addEventListener("click", function () {
-  document.querySelector("#controls").style.top = "-50%";
+close.addEventListener("click", function () {
+  controls.style.top = "-50%";
 });
 
 document.body.addEventListener("dblclick", () => {
-  document.querySelector("#controls").style.top = "-50%";
+  controls.style.top = "-50%";
 });
+
+fullscreenBtn.addEventListener("click", fullscreen);
